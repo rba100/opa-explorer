@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <form action="explore">
+        <input type="text" id="instanceUri" name="instanceUri" placeholder="Opa address">
+    </form>
+
+    <a href="explore?instanceUri=http%3A%2F%2Fhost.docker.internal%3A8181">host.docker.internal 8181</a>
+    <a href="explore?instanceUri=http%3A%2F%2Flocalhost%3A8181">Localhost 8181</a>
+</div>
