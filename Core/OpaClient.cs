@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Net;
 
 using Newtonsoft.Json;
@@ -16,6 +17,31 @@ public class OpaClient
 
         var opaResponse = JsonConvert.DeserializeObject<OpaPoliciesResponse>(responseJson)!;
         return opaResponse.Result;
+    }
+
+    public string Query(Uri baseUri, string dataPath, string inputJson)
+    {
+        using var client = new HttpClient { BaseAddress = baseUri };
+
+        var payload = "{ \"input\" : " + inputJson + " }";
+
+        var response = client.PostAsync($"v1/data/{dataPath}",
+                                        new StringContent(payload,                  
+                                                          Encoding.UTF8, 
+                                                          "application/json")).Result;
+
+        return response.Content.ReadAsStringAsync().Result;
+    }
+
+    public class OpaQueryResult {
+        public object Result {get;set;}
+        public OpaError[] Errors {get;set;}
+    }
+
+    public class OpaError
+    {
+        public string Code {get;set;}
+        public string Message {get;set;}
     }
 }
 

@@ -1,0 +1,45 @@
+@page
+@model ExploreModel
+
+@{
+    ViewData["Title"] = "Instance | Run Query";
+}
+
+<textarea id="query-inputPath" style="width: 100%;" rows="1"></textarea>
+<textarea id="query-input" style="width: 100%;"></textarea>
+<br />
+<button id="btn-run" class="btn btn-primary">Run</button>
+<br />
+<br />
+<pre id="query-output"></pre>
+
+<script type="application/javascript">
+    var $ = jQuery;
+
+    $(function(){
+        var btnRun = $('#btn-run');
+        var inputPath = $('#query-inputPath');
+        var input = $('#query-input');
+        var output = $('#query-output');
+        btnRun.click(function(){
+
+            var request = {
+                 OpaAddress: '@Model.InstanceUri',
+                 Query: input.val(),
+                 DataPath: inputPath.val()
+            };
+
+            $.ajax({
+                url: '/api/v1/query',
+                method: 'POST',
+                data: JSON.stringify(request),
+                contentType: "application/json",
+                dataType: 'json'
+            }).done(function(data){
+                output.text(JSON.stringify(data));
+            }).fail(function(e){
+                output.text("Failed: " +  e.status);
+            });           
+        });
+    });
+</script>

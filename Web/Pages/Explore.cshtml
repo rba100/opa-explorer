@@ -1,8 +1,10 @@
 @page
 @model ExploreModel
+
 @{
     ViewData["Title"] = "Instance";
 }
+
 <h1>@Model.InstanceUri</h1>
 
 @foreach (var policy in Model.Policies)
