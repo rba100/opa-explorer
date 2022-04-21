@@ -10,6 +10,9 @@ public class RunQueryModel : PageModel
     [BindProperty(SupportsGet = true)]
     public Uri InstanceUri { get; set; }
 
+    [BindProperty(SupportsGet = true)]
+    public string DataPath { get; set; }
+
     public RunQueryModel(ILogger<RunQueryModel> logger)
     {
         _logger = logger;

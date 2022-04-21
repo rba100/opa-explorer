@@ -9,8 +9,13 @@
 
 @foreach (var policy in Model.Policies)
 {
-    <div>
-        <h3>@policy.Id</h3>
-        <pre>@policy.Raw</pre>
+    <div class="policy">
+        <div class="policy-heading">
+            <h3>@policy.Id</h3>
+            <a class="btn btn-secondary btn-sm" asp-area="" asp-page="/RunQuery"
+                asp-route-InstanceUri="@Model.InstanceUri.ToString()" asp-route-DataPath="@policy.Id">Query</a>
+        </div>
+        <hr />
+        <div class="policy-body"><pre>@policy.Raw</pre></div>
     </div>
 }

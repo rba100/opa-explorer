@@ -1,12 +1,15 @@
 @page
-@model ExploreModel
+@model RunQueryModel
 
 @{
     ViewData["Title"] = "Instance | Run Query";
 }
 
-<textarea id="query-inputPath" style="width: 100%;" rows="1"></textarea>
-<textarea id="query-input" style="width: 100%;"></textarea>
+<label for="query-inputPath">Data path <small>(exclude <code>/v1/data/</code>)</small></label>
+<textarea name="query-inputPath" id="query-inputPath" style="width: 100%; font-family: monospace;"
+    rows="1">@Model.DataPath</textarea>
+<label for="query-input">Query input JSON <small>(exclude <code>{ "input" : }</code> wrapper)</small></label>
+<textarea name="query-input" id="query-input" style="width: 100%; font-family: monospace;" rows="20"></textarea>
 <br />
 <button id="btn-run" class="btn btn-primary">Run</button>
 <br />
@@ -16,17 +19,17 @@
 <script type="application/javascript">
     var $ = jQuery;
 
-    $(function(){
+    $(function () {
         var btnRun = $('#btn-run');
         var inputPath = $('#query-inputPath');
         var input = $('#query-input');
         var output = $('#query-output');
-        btnRun.click(function(){
+        btnRun.click(function () {
 
             var request = {
-                 OpaAddress: '@Model.InstanceUri',
-                 Query: input.val(),
-                 DataPath: inputPath.val()
+                OpaAddress: '@Model.InstanceUri',
+                Query: input.val(),
+                DataPath: inputPath.val()
             };
 
             $.ajax({
@@ -35,11 +38,11 @@
                 data: JSON.stringify(request),
                 contentType: "application/json",
                 dataType: 'json'
-            }).done(function(data){
+            }).done(function (data) {
                 output.text(JSON.stringify(data));
-            }).fail(function(e){
-                output.text("Failed: " +  e.status);
-            });           
+            }).fail(function (e) {
+                output.text("Failed: " + e.status);
+            });
         });
     });
 </script>
