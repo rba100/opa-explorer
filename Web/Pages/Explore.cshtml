@@ -16,6 +16,6 @@
                 asp-route-InstanceUri="@Model.InstanceUri.ToString()" asp-route-DataPath="@policy.Id">Query</a>
         </div>
         <hr />
-        <div class="policy-body"><pre>@policy.Raw</pre></div>
+        <div class="policy-body"><pre><code class="language-rego">@policy.Raw</code></pre></div>
     </div>
 }
