@@ -1,3 +1,5 @@
+all: build docker-build
+
 build:
 	dotnet build
 run:
