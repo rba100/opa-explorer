@@ -54,4 +54,15 @@ public class OpaPolicy
 {
     public string Id { get; set; }
     public string Raw { get; set; }
+
+    public string GetPackage()
+    {
+        using var reader = new StringReader(Raw);
+        var line = reader.ReadLine();
+        while(line != null){
+            if(line.StartsWith("package")) return line.Split(null, 2).Last();
+            line = reader.ReadLine();
+        }
+        return Id;
+    }
 }

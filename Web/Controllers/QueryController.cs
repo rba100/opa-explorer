@@ -9,7 +9,9 @@ public class QueryController : Controller
     [HttpPost, Route("")]
     public IActionResult Post([FromBody] QueryRequest query)
     {
-        if(string.IsNullOrWhiteSpace(query?.DataPath)) return BadRequest("no data path specified");
+        if(query?.DataPath is null) return BadRequest("no data path specified");
+        if(query?.OpaAddress is null) return BadRequest("no OPA endpoint specified");
+        if(query?.Query is null) return BadRequest("no query specified");
 
         var client = new OpaExplorer.Core.OpaClient();
         var result = client.Query(query.OpaAddress, query.DataPath, query.Query ?? "\"\"");
@@ -26,7 +28,7 @@ public class QueryController : Controller
 
 public class QueryRequest
 {
-    public Uri OpaAddress {get;set;}
-    public string DataPath {get;set;}
-    public string Query {get;set;}
+    public Uri? OpaAddress {get;set;}
+    public string? DataPath {get;set;}
+    public string? Query {get;set;}
 }
