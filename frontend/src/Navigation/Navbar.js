@@ -2,15 +2,20 @@ import React from "react";
 
 const Navbar = (props) => {
 
+  var navLinks = []
+
+  if(props.instanceUri){
+    navLinks.push(
+      <a href="#">Policies</a>
+    )
+  }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/" style={{marginLeft:'1em'}}>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#" style={{ marginLeft: "1em" }}>
         {props.brandName}
       </a>
-      {
-        props.instanceUri != undefined ? <a href={'policies?instanceUri=' + props.instanceUri}>Policies</a> : null
-      }
+      {navLinks}
     </nav>
   );
 };

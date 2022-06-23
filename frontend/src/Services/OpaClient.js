@@ -2,12 +2,16 @@ function getJson(response) {
     return response.json();
 }
 
+function proxyUrl(instanceUri, path){
+    return '/proxy/' + encodeURI(instanceUri) + path;
+}
+
 const OpaClient = {
     getPolicies: (instanceUri, setPolicies) => {
-        setPolicies([ { Id: 'Test' }]);
 
-        return;
-        fetch(instanceUri + '/v1/policies', { 
+        //setPolicies([ { Id: 'Test' }]);
+
+        fetch(proxyUrl(instanceUri, '/v1/policies'), { 
             mode: 'no-cors',
 
         })

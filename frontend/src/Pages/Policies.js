@@ -13,9 +13,10 @@ const ViewPolicies = (props) => {
     }
 
     return (
-        <div>
+        <div class="container">
             <h1>Policies</h1>
-            { viewState.policies && viewState.policies.map(policy => <Policy key={policy.Id} Id={policy.Id} /> ) }
+            { viewState.policies && viewState.policies.map(policy => 
+            <Policy key={policy.id} Id={policy.id} Raw={policy.raw} /> ) }
       </div>
     );
   };

@@ -10,8 +10,8 @@ const ChooseServer = (props) => {
         <hr />
 
         <ul style={{'list-style': 'none'}}>
-            <li><a href="policies?instanceUri=http%3A%2F%2Flocalhost%3A8181">Localhost 8181</a></li>
-            <li><a href="policies?instanceUri=http%3A%2F%2Fhost.docker.internal%3A8181">host.docker.internal 8181</a> </li>
+            <li><a href="policies?instanceUri=localhost%3A8181">Localhost 8181</a></li>
+            <li><a href="policies?instanceUri=host.docker.internal%3A8181">host.docker.internal 8181</a> </li>
         </ul>
       </div>
     );
