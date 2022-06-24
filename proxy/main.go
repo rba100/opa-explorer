@@ -43,7 +43,7 @@ func proxyHandler(w http.ResponseWriter, req *http.Request) {
 		url = "http://" + url
 	}
 
-	log.Println("url=" + url)
+	log.Println(req.Method + " " + req.URL.Path)
 
 	proxyReq, err := http.NewRequest(req.Method, url, req.Body)
 

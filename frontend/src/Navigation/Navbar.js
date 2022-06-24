@@ -6,13 +6,13 @@ const Navbar = (props) => {
 
   if(props.instanceUri){
     navLinks.push(
-      <a href="#">Policies</a>
+      <a href="#" key="policies">Policies</a>
     )
   }
 
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#" style={{ marginLeft: "1em" }}>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <a className="navbar-brand" href="#" style={{ marginLeft: "1em" }}>
         {props.brandName}
       </a>
       {navLinks}

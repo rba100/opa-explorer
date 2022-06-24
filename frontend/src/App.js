@@ -13,7 +13,7 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   var instanceUri = searchParams.get('instanceUri');
-  var dataPath = searchParams.get('dataPath');
+  var packageName = searchParams.get('package');
 
   return (
     <div className="App">
@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<ChooseServer />} />
           <Route path='/policies' element={<ViewPolicies instanceUri={instanceUri} />} />
-          <Route path='/query' element={<RunQuery instanceUri={instanceUri} dataPath={dataPath}/>} />
+          <Route path='/query' element={<RunQuery instanceUri={instanceUri} package={packageName}/>} />
         </Routes>
       </div>
     </div>
