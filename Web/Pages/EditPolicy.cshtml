@@ -1,0 +1,53 @@
+@page
+@model EditPolicyModel
+
+@{
+    ViewData["Title"] = "Instance | Edit Policy";
+}
+
+<label for="policy-id">Policy ID <small>(exclude <code>/v1/policies/</code>)</small></label>
+<textarea name="policy-id" id="policy-id" style="width: 100%; font-family: monospace;"
+    rows="1">@Model.PolicyId</textarea>
+<label for="policy-input">Rego policy</label>
+<textarea name="policy-input" id="policy-input" style="width: 100%; font-family: monospace;"
+    rows="20">@Model.PolicyRego</textarea>
+<br />
+<button id="btn-run" class="btn btn-primary">Save</button>
+<br />
+<br />
+<pre id="policy-output"></pre>
+
+<script type="application/javascript">
+    var $ = jQuery;
+
+    $(function () {
+        var btnRun = $('#btn-run');
+        var policyId = $('#policy-id');
+        var rawRego = $('#policy-input');
+        var output = $('#policy-output');
+
+        btnRun.click(function () {
+
+            var rego = rawRego.val().replace('"',"")
+
+            var request = {
+                InstanceUri: "@Model.InstanceUri?.ToString()",
+                OpaPolicy: {
+                    Id: policyId.val(),
+                    Raw: rawRego.val(),
+                }
+            };
+
+            $.ajax({
+                url: '/api/v1/policies/',
+                method: 'PUT',
+                data: JSON.stringify(request),
+                contentType: "application/json"
+            }).done(function (msg) {
+                output.text(msg);
+            }).fail(function (e) {
+                output.text("Failed: " + e.status);
+            });
+        });
+    });
+</script>

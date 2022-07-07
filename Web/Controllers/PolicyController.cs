@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using OpaExplorer.Core;
 
 namespace OpaExplorer.Controllers;
 
@@ -16,5 +17,24 @@ public class PolicyController : Controller
         await client.DeletePolicyAsync(new Uri(instanceUri), policyId);
 
         return Ok();
+    }
+
+    [HttpPut, Route("")]
+    public async Task<IActionResult> Put([FromBody] PutPolicyBinding binding)
+    {
+        if(binding is null) return BadRequest("incorrect request body");
+        if(binding.InstanceUri is null) return BadRequest("no instance specified");
+        if(binding.OpaPolicy is null) return BadRequest("no policy specified");
+
+        var client = new OpaExplorer.Core.OpaClient();
+
+        await client.PutPolicy(new Uri(binding.InstanceUri), binding.OpaPolicy);
+
+        return Ok("Saved");
+    }
+
+    public class PutPolicyBinding{
+        public string? InstanceUri {get;set;}
+        public OpaPolicy? OpaPolicy {get;set;}
     }
 }

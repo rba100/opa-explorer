@@ -15,6 +15,9 @@
         <a class="btn btn-secondary btn-sm" asp-area="" asp-page="/RunQuery"
             asp-route-InstanceUri="@Model.InstanceUri?.ToString()"
             asp-route-DataPath="@policy.GetPackage().Replace('.','/')">Query</a>
+        <a class="btn btn-secondary btn-sm" asp-area="" asp-page="/EditPolicy"
+            asp-route-InstanceUri="@Model.InstanceUri?.ToString()"
+            asp-route-PolicyId="@policy.Id">Edit</a>
         <a class="btn btn-secondary btn-sm delete-button" 
            data-policyid="@policy.Id"
            data-instanceuri="@Model.InstanceUri?.ToString()">Delete</a>
