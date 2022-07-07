@@ -10,12 +10,41 @@
 @foreach (var policy in Model.Policies)
 {
     <div class="policy">
-        <div class="policy-heading">
-            <h3>@policy.Id</h3>
-            <a class="btn btn-secondary btn-sm" asp-area="" asp-page="/RunQuery"
-                asp-route-InstanceUri="@Model.InstanceUri?.ToString()" asp-route-DataPath="@policy.GetPackage().Replace('.','/')">Query</a>
-        </div>
-        <hr />
-        <div class="policy-body"><pre><code class="language-rego">@policy.Raw</code></pre></div>
+    <div class="policy-heading">
+        <h3>@policy.Id</h3>
+        <a class="btn btn-secondary btn-sm" asp-area="" asp-page="/RunQuery"
+            asp-route-InstanceUri="@Model.InstanceUri?.ToString()"
+            asp-route-DataPath="@policy.GetPackage().Replace('.','/')">Query</a>
+        <a class="btn btn-secondary btn-sm delete-button" 
+           data-policyid="@policy.Id"
+           data-instanceuri="@Model.InstanceUri?.ToString()">Delete</a>
     </div>
+    <hr />
+    <div class="policy-body">
+        <pre><code class="language-rego">@policy.Raw</code></pre>
+    </div>
+</div>
 }
+
+<script lang="javascript">
+    $(function () {
+        var deleteButtons = $('.delete-button');
+        deleteButtons.click(function () {
+            var button = $(this);
+            button.attr("disabled", true);
+            var policyId = button.attr('data-policyid');
+            var instanceUri = button.attr('data-instanceuri');
+            var policyElement = button.parents('.policy');
+
+            var path = "api/v1/policies?policyId=" + encodeURI(policyId) + "&instanceUri=" + encodeURI(instanceUri);
+
+            $.ajax(path, {
+                method: "DELETE"
+            }).done(function() {
+                policyElement.remove();
+            }).fail(function(){
+                alert("Unable to delete policy. Refresh page, inspect, and wonder about what happened.");
+            });
+        });
+    });
+</script>

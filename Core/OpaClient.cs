@@ -19,6 +19,24 @@ public class OpaClient
         return opaResponse.Result;
     }
 
+    public async Task PutPolicy(Uri baseUri, OpaPolicy policy)
+    {
+        using var client = new HttpClient { BaseAddress = baseUri };
+        await client.PutAsync($"v1/policies/{policy.Id}", new StringContent(policy.Raw));
+    }
+
+    public async Task PutPolicy(Uri baseUri, string policyName, string rawRego)
+    {
+        using var client = new HttpClient { BaseAddress = baseUri };
+        await client.PutAsync($"v1/policies/{policyName}", new StringContent(rawRego));
+    }
+
+    public async Task DeletePolicyAsync(Uri baseUri, string policyName)
+    {
+        using var client = new HttpClient { BaseAddress = baseUri };
+        await client.DeleteAsync($"v1/policies/{policyName}");
+    }
+
     public string Query(Uri baseUri, string dataPath, string inputJson)
     {
         using var client = new HttpClient { BaseAddress = baseUri };
