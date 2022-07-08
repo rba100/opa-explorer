@@ -11,7 +11,7 @@ build-webserver:
 build-frontend:
 	npm --prefix frontend run build
 
-run-proxy:
+run-webserver:
 	./webserver ./frontend/build
 
 run:

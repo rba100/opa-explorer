@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const apiPath = "/proxy/"
+
 func main() {
 
 	var staticFilesPath string
@@ -22,7 +24,7 @@ func main() {
 		http.ServeFile(w, req, staticFilesPath+"/index.html")
 	}
 
-	http.HandleFunc("/proxy/", proxyHandler)
+	http.HandleFunc(apiPath, proxyHandler)
 	http.HandleFunc("/policies", serviceIndex)
 	http.HandleFunc("/query", serviceIndex)
 	http.Handle("/", http.FileServer(http.Dir(staticFilesPath)))
@@ -34,10 +36,8 @@ func main() {
 func proxyHandler(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	prefix := "/proxy/"
-
 	var url string
-	url = req.URL.Path[len(prefix):]
+	url = req.URL.Path[len(apiPath):]
 
 	if !strings.HasPrefix(url, "http") {
 		url = "http://" + url
