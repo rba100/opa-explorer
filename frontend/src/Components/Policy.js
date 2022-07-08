@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import './prism.css'
+//import './prism.css'
 import Prism from 'prismjs'
 
 const Policy = (props) => {

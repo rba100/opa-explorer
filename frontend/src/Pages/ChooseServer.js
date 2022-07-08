@@ -2,7 +2,7 @@
 const ChooseServer = (props) => {
 
     return (
-      <div>
+      <div className="centred">
         <form action="policies">
             <input type="text" id="instanceUri" name="instanceUri" placeholder="Opa address" />
         </form>

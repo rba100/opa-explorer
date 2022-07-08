@@ -3,7 +3,7 @@ import './App.css';
 
 import { Routes, Route, useSearchParams } from "react-router-dom";
 
-import Navbar from "./Navigation/Navbar.js";
+import NavigationBar from "./Navigation/NavigationBar.js";
 import ChooseServer from "./Pages/ChooseServer.js";
 import ViewPolicies from "./Pages/Policies.js";
 import RunQuery from "./Pages/RunQuery.js";
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar brandName="OPA Explorer" instanceUri={instanceUri}/>
+      <NavigationBar brandName="OPA Explorer" instanceUri={instanceUri}/>
       <div>
         <Routes>
           <Route path='/' element={<ChooseServer />} />
