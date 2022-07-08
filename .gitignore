@@ -402,3 +402,6 @@ FodyWeavers.xsd
 
 # VS Code
 .vscode
+
+# Project output
+webserver
